@@ -1,3 +1,4 @@
-import {generatePhotoDescriptions} from './data.js';
+import {renderPictures} from './render.js';
 
-console.log(generatePhotoDescriptions());
+
+renderPictures();
