@@ -1,4 +1,5 @@
-import {renderPictures} from './render.js';
+import {generatePhotoDescriptions} from './data.js';
+import {renderPictures} from './render-min.js';
 
-
-renderPictures();
+const data = generatePhotoDescriptions();
+renderPictures(data);

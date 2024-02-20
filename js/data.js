@@ -38,9 +38,9 @@ const generateRandomComments = (min, max) => {
 
 //Создать описание фотографии
 
-const createPhotoDescription = (i) => ({
-  id: i,
-  url: `photos/${i}.jpg`,
+const createPhotoDescription = (_,i) => ({
+  id: i+1,
+  url: `photos/${i+1}.jpg`,
   description: 'фотография',
   likes: getRandomInteger(15,200),
   comments: generateRandomComments(1, 20),
@@ -48,12 +48,6 @@ const createPhotoDescription = (i) => ({
 
 //Создать массив описаний фотографий
 
-const generatePhotoDescriptions = () => {
-  const randomPhotoDescriptions = [];
-  for (let i = 1; i <= QUANTITY_OF_DISCRIPTIONS; i++) {
-    randomPhotoDescriptions.push(createPhotoDescription(i));
-  }
-  return randomPhotoDescriptions;
-};
+const generatePhotoDescriptions = () => Array.from({length: QUANTITY_OF_DISCRIPTIONS}, createPhotoDescription);
 
 export {generatePhotoDescriptions};
