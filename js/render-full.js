@@ -8,33 +8,42 @@ const commentsCount = bigPicture.querySelector('.comments-count');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const body = document.querySelector('body');
 
-//Обработчик закрытия окна с большой фотографией
-
-const closeBigPictureHandler = () => {
-  cancelButton.onclick = function () {
-    body.classList.remove('modal-open');
-    bigPicture.classList.add('hidden');
-  };
-  document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
-      body.classList.remove('modal-open');
-      bigPicture.classList.add('hidden');
-    }
-  });
-
-};
-
-// Обработчик нажатия на миниатюру фотографии
-
-const onPictureClickHandler = ({url, likes, comments, description}) => () => {
+// Открытие окна
+const openFullPicture = () => {
+  body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
+  document.addEventListener('keydown', onEscKeydown);
+  cancelButton.addEventListener('click', closeFullPicture);
+};
+// Закрытие окна
+function closeFullPicture () {
+  body.classList.remove('modal-open');
+  bigPicture.classList.add('hidden');
+  document.removeEventListener('keydown', onEscKeydown);
+}
+
+// Нажатиe на кнопку Esc
+function onEscKeydown (evt) {
+  if (evt.keyCode === 27) {
+    evt.preventDefault();
+    closeFullPicture();
+  }
+}
+
+// отрисовка большой фокти
+
+const renderFullPicture = ({url, likes, comments, description}) => {
   bigPictureImg.src = url;
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
   socialCaption.textContent = description;
   renderComments(comments);
-  body.classList.add('modal-open');
-  closeBigPictureHandler();
+};
+
+// Функция для обработчика клика по миниатюре фотографии
+const onPictureClickHandler = ({url, likes, comments, description}) => function () {
+  renderFullPicture({url, likes, comments, description});
+  openFullPicture();
 };
 
 export{onPictureClickHandler};
