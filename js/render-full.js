@@ -1,4 +1,5 @@
 import {renderComments} from './render-comments.js';
+import {showComments} from './comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
@@ -14,6 +15,7 @@ const openFullPicture = () => {
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', onEscKeydown);
   cancelButton.addEventListener('click', closeFullPicture);
+
 };
 // Закрытие окна
 function closeFullPicture () {
@@ -44,6 +46,7 @@ const renderFullPicture = ({url, likes, comments, description}) => {
 const onPictureClickHandler = ({url, likes, comments, description}) => function () {
   renderFullPicture({url, likes, comments, description});
   openFullPicture();
+  showComments();
 };
 
 export{onPictureClickHandler};

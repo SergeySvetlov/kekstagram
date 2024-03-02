@@ -4,5 +4,3 @@ import './form.js';
 
 const data = generatePhotoDescriptions();
 renderPictures(data);
-
-
