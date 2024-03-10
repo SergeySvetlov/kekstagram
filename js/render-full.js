@@ -32,7 +32,7 @@ function onEscKeydown (evt) {
   }
 }
 
-// отрисовка большой фокти
+// отрисовка большой фотки
 
 const renderFullPicture = ({url, likes, comments, description}) => {
   bigPictureImg.src = url;
