@@ -1,5 +1,5 @@
 import {transform, scaling} from './scaling.js';
-import './slider.js';
+import {enableFilters, effectsNone} from './slider.js';
 import './form.js';
 
 const DEFOUL_SCALE_VALUE = 100;
@@ -16,12 +16,14 @@ function showModal () {
   imgUploadOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onEscKeydown);
   scaling();
+  enableFilters();
 }
 function closeModal () {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
   document.removeEventListener('keydown', onEscKeydown);
   uploadFile.value = '';
+  effectsNone();
 }
 
 function onEscKeydown (evt) {

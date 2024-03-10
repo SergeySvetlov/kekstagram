@@ -116,5 +116,17 @@ const updateEffect = () => {
   }
 };
 
-slider.noUiSlider.on('update', updateEffect);
+const effectsNone = () => {
+  slider.noUiSlider.updateOptions(effectSettings.none.slider);
+  img.className = '';
+  slider.classList.add('hidden');
+  img.style.filter = 'none';
+  img.style.transform = 'none';
+};
 
+
+const enableFilters = () => {
+  slider.noUiSlider.on('update', updateEffect);
+};
+
+export {enableFilters, effectsNone};
