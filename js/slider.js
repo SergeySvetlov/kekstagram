@@ -115,13 +115,13 @@ const updateEffect = () => {
     img.style.filter = `${checkedSettings.filter}(${slider.noUiSlider.get()}${checkedSettings.units})`;
   }
 };
-
+// сброс настроек
 const effectsNone = () => {
   slider.noUiSlider.updateOptions(effectSettings.none.slider);
   img.className = '';
   slider.classList.add('hidden');
   img.style.filter = 'none';
-  img.style.transform = 'none';
+  img.style.transform = 'none'; //сброс масштаба
 };
 
 
