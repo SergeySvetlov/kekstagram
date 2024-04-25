@@ -1,17 +1,15 @@
-import {transform, scaling} from './scaling.js';
+import {scaling, removeScaling} from './scaling.js';
 import {enableFilters, effectsNone} from './slider.js';
-import './form.js';
-
-const DEFOUL_SCALE_VALUE = 100;
 
 const body = document.querySelector('body');
 const uploadFile = body.querySelector('#upload-file');
 const imgUploadOverlay = body.querySelector('.img-upload__overlay');
 const form = body.querySelector('.img-upload__form');
 const uploadCancelButton = form.querySelector('#upload-cancel');
+const textHashtags = form.querySelector('.text__hashtags');
+const textDescription = form.querySelector('.text__description');
 
 function showModal () {
-  transform(DEFOUL_SCALE_VALUE);
   body.classList.add('modal-open');
   imgUploadOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onEscKeydown);
@@ -24,14 +22,22 @@ function closeModal () {
   document.removeEventListener('keydown', onEscKeydown);
   uploadFile.value = '';
   effectsNone();
+  removeScaling();
 }
 
 function onEscKeydown (evt) {
-  if (evt.keyCode === 27 && document.activeElement !== textHashtags && document.activeElement !== textDescription) {
+  if (evt.keyCode === 27 && document.activeElement !== textHashtags && document.activeElement !== textDescription && document.querySelector('.error') === null) {
     evt.preventDefault();
     closeModal();
   }
 }
 
-uploadFile.addEventListener('change', showModal);
-uploadCancelButton.addEventListener('click', closeModal);
+const setUploadFile = () => {
+  if (uploadFile === null) {
+    return;
+  }
+  uploadFile.addEventListener('change', showModal);
+  uploadCancelButton.addEventListener('click', closeModal);
+};
+
+export {closeModal, setUploadFile};

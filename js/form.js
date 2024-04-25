@@ -1,6 +1,11 @@
+import {sendData} from './api.js';
+import {showError}  from './error.js';
+import {closeModal} from './editor.js';
+import {showErrorMessage, showSuccessMessage} from './messages.js';
+
 const form = document.querySelector('.img-upload__form');
 const textHashtags = form.querySelector('.text__hashtags');
-const textDescription = form.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 const REGULAR = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 const pristine = new Pristine(form, {
@@ -22,7 +27,35 @@ function validateHashtags (value) {
 
 pristine.addValidator(textHashtags, validateHashtags, 'некорректный набор хэштегов');
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправка...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setForm = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(() => {
+        unblockSubmitButton();
+        showSuccessMessage();
+        closeModal();
+      },
+      () => {
+        showErrorMessage();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export {setForm};

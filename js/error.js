@@ -4,6 +4,7 @@ const showError = (message) => {
   div.style.backgroundColor = 'red';
   div.style.color = 'white';
   div.style.position = 'absolute';
+  div.style.zIndex = '100';
   div.style.left = '0';
   div.style.top = '0';
   div.style.right = '0';
