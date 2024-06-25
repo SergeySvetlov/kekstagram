@@ -1,12 +1,13 @@
 //import {generatePhotoDescriptions} from './data.js';
 import {getData} from './api.js';
 import {setFileChooser} from './file.js';
-import {renderPictures} from './render-min.js';
+import {setRenderPictures} from './filters.js';
 import {showError}  from './error.js';
 import {setUploadFile} from './editor.js';
 import {setForm} from './form.js';
+import './filters.js';
 
 setFileChooser();
 setUploadFile();
-getData(renderPictures, showError);
+getData(setRenderPictures, showError);
 setForm();

@@ -15,6 +15,14 @@ const renderPictures = (data) => {
     fragment.append(newPicture);
   });
 
+  const picturesContainerChildren = picturesContainer.children;
+
+  Array.from(picturesContainerChildren).forEach((child) => {
+    if (child !== document.querySelector('.img-upload')) {
+      child.remove();
+    }
+  });
+
   return picturesContainer.append(fragment);
 };
 
